@@ -1,11 +1,10 @@
 class Solution:
     def twoSum(self, nums, target):
-        seen = {}
+        n = len(nums)
 
-        for i, num in enumerate(nums):
-            complement = target - num
+        for i in range(n):
+            for j in range(i + 1, n):
+                if nums[i] + nums[j] == target:
+                    return [i, j]
 
-            if complement in seen:
-                return [seen[complement], i]
-
-            seen[num] = i
+        return []
