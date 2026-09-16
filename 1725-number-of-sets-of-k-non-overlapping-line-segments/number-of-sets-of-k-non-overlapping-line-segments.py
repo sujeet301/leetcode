@@ -1,0 +1,25 @@
+class Solution(object):
+    def numberOfSets(self, n, k):
+        MOD = 10**9 + 7
+
+        dp = [[0] * (k + 1) for _ in range(n)]
+
+        # Choosing 0 segments = 1 way
+        for i in range(n):
+            dp[i][0] = 1
+
+        for j in range(1, k + 1):
+            running = 0
+
+            for i in range(1, n):
+                running += dp[i - 1][j - 1]
+                running %= MOD
+
+                # Don't use the current point
+                dp[i][j] = dp[i - 1][j]
+
+                # Add ways to create a new segment
+                dp[i][j] += running
+                dp[i][j] %= MOD
+
+        return dp[n - 1][k]
